@@ -1,168 +1,356 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title></title>
-  <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
+<!-- basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- mobile metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<!-- site metas -->
+<title>anzati1</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">	
+<!-- bootstrap css -->
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<!-- style css -->
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<!-- Responsive-->
+<link rel="stylesheet" href="css/responsive.css">
+<!-- fevicon -->
+<link rel="icon" href="images/fevicon.png" type="image/gif" />
+<!-- Scrollbar Custom CSS -->
+<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+<!-- Tweaks for older IEs-->
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<!-- owl stylesheets --> 
+<link rel="stylesheet" href="css/owl.carousel.min.css">
+<link rel="stylesheet" href="css/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 
-  body {
-    background: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  canvas {
-    border: 1px solid white;
-  }
-  </style>
+
+
 </head>
 <body>
-<canvas width="400" height="400" id="game"></canvas>
-<script>
-var canvas = document.getElementById('game');
-var context = canvas.getContext('2d');
+    <!-- Clean Entry Part 1 -->
+    <div class="panel-group">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse1" class="panel_text">Quick Links</a>
+          </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse">
+          <a href="#forms" class="panel_text">Default Personal Saber Form Workaround.</a>
+          <a href="#helix" class="panel_text">Helix to wOS ALCS</a>
+          <a href="#parry" class="panel_text">Parry Adjustments</a>
+          <!-- <a href="#sample" class="panel_text">Sample Text</a> -->
+          <a href="#extraxp" class="panel_text">Extra XP</a>
+          <a href="#leapanim" class="panel_text">Force Leap Landing Animation</a>
+          <a href="#sweptricks" class="panel_text">ALCS SWEP Tricks</a>
+          <a href="#hiltonbelt" class="panel_text">ALCS HiltOnBelt Fix</a>
+          <a href="#igniteanims" class="panel_text">Ignite/Unignite Animation</a>
+          <a href="#saberdmg" class="panel_text">Non Lightsaber Damage Bonus</a>
+          <a href="#falldmg" class="panel_text">Specific Lightsaber Falldamage</a>
+          <a href="#rgbitem" class="panel_text">Dropped Item Rainbow</a>
+          <a href="#extraxp2" class="panel_text">Extra XP for npcs</a>
+          <a href="#flurryatt" class="panel_text">Flurry Attacks!</a>
+        </div>
+      </div>
+    </div>
 
-var grid = 16;
-var count = 0;
-  
-var snake = {
-  x: 160,
-  y: 160,
-  
-  // snake velocity. moves one grid length every frame in either the x or y direction
-  dx: grid,
-  dy: 0,
-  
-  // keep track of all grids the snake body occupies
-  cells: [],
-  
-  // length of the snake. grows when eating an apple
-  maxCells: 4
-};
-var apple = {
-  x: 320,
-  y: 320
-};
+    <!-- CATEGORY -->
+    <div class="ride_section_2 layout_padding">
+      <div id="forms">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Default Personal Saber Form Workaround.</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Fixes when default forms wearn't a thing. <br> Status: Working/Useless, Check Default Personal saber config.</h1>
+              <p class="long_text">local forms = {<br>    ["Aggresive"] = { 2 },<br>}<br><br>hook.Add("wOS.ALCS.Lightsaber.PostSkillApply", "GivePersonalForms", function(wep, ply)<br>    if wep.PersonalLightsaber then<br>        for name, numberTbl in pairs(forms) do<br>            for _, number in ipairs(numberTbl) do<br>                wep:AddForm(name, number)<br>            end<br>        end<br>    end<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-// get random whole numbers in a specific range
-// @see https://stackoverflow.com/a/1527820/2124254
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
+      <hr size="30" noshade>
 
-// game loop
-function loop() {
-  requestAnimationFrame(loop);
+      <div class="container">
+        <div id="helix">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Helix to wOS ALCS</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Converts Helix Items to wOS ALCS Items. <br> Status: Working</h1>
+              <p class="long_text">function ConvertToNut()<br>    if (not nut) then<br>        Error("nutscript was not found")<br><br>        return<br>    end<br><br>    for k, v in pairs(wOS.ItemList) do<br>        nut.item.list[k] = nil<br>        nut.item.Register(k, nil, nil, nil, true)<br>        local item = nut.item.list[k]<br>        item.WOS = v -- config wiltos<br>        item.name = v.Name<br>        item.model = Model(v.Model)<br><br>        if (v.Icon or v.icon) then<br>            item.icon = v.Icon<br>        end<br><br>        item.noBusiness = false<br>        item.description = v.Description<br>        item.category = "ALCS Crystals"<br>        item.width = 1<br>        item.height = 1<br>        item.class = "nut_loot"<br>    end<br><br>    print("WOS Items loaded in NUTSCRIPT")<br>end<br><br>hook.Add("wOS.ALCS.PostLoaded", "ConvertToNUTT", function()<br>    ConvertToNut()<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  // slow game loop to 15 fps instead of 60 (60/15 = 4)
-  if (++count < 4) {
-    return;
-  }
+      <hr size="30" noshade>
 
-  count = 0;
-  context.clearRect(0,0,canvas.width,canvas.height);
+      <div class="container">
+        <div id="parry">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Parry Adjustments</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Disables attack for parry victim for 1 second, and slow 50% for 2 seconds.. <br> Status: Working</h1>
+              <p class="long_text">hook.Add("Move", "WQwHGYTePt", function(ply, mv)<br>    local mod = 1<br><br>    if ply.ParrySlow and ply.ParrySlow >= CurTime() then<br>        mod = mod * 0.5<br>    end<br><br>    if mod < 1 then<br>        mv:SetMaxSpeed(ply:GetWalkSpeed() * mod)<br>        mv:SetMaxClientSpeed(ply:GetWalkSpeed() * mod)<br>    end<br>end)<br><br>hook.Add("wOS.ALCS.Combat.ShouldBladeParry", "FYSIHBkL6N", function(ENTITY_WEAPON, ENTITY_ENEMY_WEAPON, ENTITY_ENEMY_PLAYER, INT_PARRY_COST)<br>    if ENTITY_ENEMY_PLAYER:IsOnGround() then<br>        return BOOL_BLOCK<br>    else<br>        return<br>    end<br>end)<br><br>hook.Add("wOS.ALCS.Combat.OnBladeParry", "T8Neh1TFKR", function(ENTITY_WEAPON, ENTITY_ENEMY_WEAPON, ENTITY_ENEMY_PLAYER, INT_PARRY_COST)<br>    ENTITY_ENEMY_WEAPON:SetNextAttack(1)<br>    ENTITY_ENEMY_PLAYER.ParrySlow = CurTime() + 2<br>    ENTITY_WEAPON.Owner:SetNextAttack(0.5)<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  // move snake by it's velocity
-  snake.x += snake.dx;
-  snake.y += snake.dy;
-
-  // wrap snake position horizontally on edge of screen
-  if (snake.x < 0) {
-    snake.x = canvas.width - grid;
-  }
-  else if (snake.x >= canvas.width) {
-    snake.x = 0;
-  }
-  
-  // wrap snake position vertically on edge of screen
-  if (snake.y < 0) {
-    snake.y = canvas.height - grid;
-  }
-  else if (snake.y >= canvas.height) {
-    snake.y = 0;
-  }
-
-  // keep track of where snake has been. front of the array is always the head
-  snake.cells.unshift({x: snake.x, y: snake.y});
-
-  // remove cells as we move away from them
-  if (snake.cells.length > snake.maxCells) {
-    snake.cells.pop();
-  }
-
-  // draw apple
-  context.fillStyle = 'red';
-  context.fillRect(apple.x, apple.y, grid-1, grid-1);
-
-  // draw snake one cell at a time
-  context.fillStyle = 'green';
-  snake.cells.forEach(function(cell, index) {
-    
-    // drawing 1 px smaller than the grid creates a grid effect in the snake body so you can see how long it is
-    context.fillRect(cell.x, cell.y, grid-1, grid-1);  
-
-    // snake ate apple
-    if (cell.x === apple.x && cell.y === apple.y) {
-      snake.maxCells++;
-
-      // canvas is 400x400 which is 25x25 grids 
-      apple.x = getRandomInt(0, 25) * grid;
-      apple.y = getRandomInt(0, 25) * grid;
-    }
-
-    // check collision with all cells after this one (modified bubble sort)
-    for (var i = index + 1; i < snake.cells.length; i++) {
+      <hr size="30" noshade>
       
-      // snake occupies same space as a body part. reset game
-      if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
-        snake.x = 160;
-        snake.y = 160;
-        snake.cells = [];
-        snake.maxCells = 4;
-        snake.dx = grid;
-        snake.dy = 0;
+      <div class="container">
+        <div id="extraxp">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Extra XP</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Gives x1.5 xp for enemy categories, and x0.5 for a team category kill. <br> Status: Working</h1>
+              <p class="long_text">hook.Add("wOS.ALCS.Skill.GetPlayerXP", "ExtraForEnemies", function(att, vic, num)<br>    if RPExtraTeams[att:Team()].category == RPExtraTeams[vic:Team()].category then<br>        return num * 0.5<br>    else<br>        return num * 1.5<br>    end<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="leapanim">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Force Leap Landing Animation</h1>
+              <h1 class="secondary_text">Realm: lua/wos/advswl/forcepowers/default_forcepowers.lua <br> Description: Adds an animation when you land from a force leap. <br> Status: Working</h1>
+              <p class="long_text">hook.Add("OnPlayerHitGround", "wOS.ALCS.RunFallAnimation", function(ply, inWater, onFloater, speed)<br>    local wep = ply:GetActiveWeapon()<br><br>    if wep.IsLightsaber and ply.IsAboutToLeap then<br>        ply:SetSequenceOverride("wos_bs_shared_recover_forward", 1.3)<br>        ply.IsAboutToLeap = false<br>    end<br>end)<br><br>wOS.ForcePowers:RegisterNewPower({<br>    name = "Force Leap",<br>    icon = "L",<br>    image = "wos/forceicons/leap.png",<br>    cooldown = 2,<br>    manualaim = false,<br>    description = "Jump longer and higher. Aim higher to jump higher/further.",<br>    action = function(self)<br>        if (self:GetForce() < 10 or not self.Owner:IsOnGround()) then return end<br>        self:SetForce(self:GetForce() - 10)<br>        self:SetNextAttack(0.5)<br>        self.Owner:SetVelocity(self.Owner:GetAimVector() * 512 + Vector(0, 0, 512))<br>        self:PlayWeaponSound("lightsaber/force_leap.wav")<br>        self:CallOnClient("ForceJumpAnim", "")<br>        self.Owner.IsAboutToLeap = true<br><br>        return true<br>    end<br>})<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-        apple.x = getRandomInt(0, 25) * grid;
-        apple.y = getRandomInt(0, 25) * grid;
-      }
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="sweptricks">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">ALCS SWEP Tricks.</h1>
+              <h1 class="secondary_text">Realm: lua/weapons/any_swep_file.lua <br> Description: Just some cool swep tricks not many know about. <br> Status: Working</h1>
+              <p class="long_text">SWEP.BlockAnimation = {"animationname1", "animationname2"}<br>SWEP.BladeBlock = {"animationname1", "animationname2"}<br>SWEP.BlasterBlock = {"animationname1", "animationname2"}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="hiltonbelt">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">ALCS HiltOnBelt Fix</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Disables hilts on belt permanantly <br> Status: Working</h1>
+              <p class="long_text">hook.Add( "Initialize", "wOS.Rubat.FixTheHilts", function()<br>    RunConsoleCommand("rb655_lightsaber_hiltonbelt", "0")<br>end )<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="igniteanims">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Ignite/Unignite Animation.</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Simple ignite/unignite animation. Add new data to your form using keywords ["unignite"] = "animation", etc... <br> Status: Working</h1>
+              <p class="long_text">hook.Add("KeyPress", "wOS.ALCS.Ignite/Unignite", function(ply, key)<br>    local wep = ply:GetActiveWeapon()<br>    if not wep.IsLightsaber then return end<br>    local stance = wep:GetStance()<br>    local form = wOS.Form.LocalizedForms[wep:GetForm()]<br>    local formdata = wOS.Form.Singles[form][stance]<br><br>    if wep:IsIgnited() then<br>        ply:SetSequenceOverride(formdata["unignite"]) -- unignite<br>    else<br>        ply:SetSequenceOverride(formdata["ignite"]) -- ignite<br>    end<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="saberdmg">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Non Lightsaber Damage Bonus</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Gives extra damage to non-lightsaber weapons. <br> Status: Working</h1>
+              <p class="long_text">local weaponmods = {<br>  ["weapon_dc15a"] = true,<br>}<br><br>hook.Add( "PlayerSwitchWeapon", "wOS.ALCS.Test.WeaponStats", function( ply, oldWeapon, newWeapon )<br>    if weaponmods[newWeapon] then<br>      ply:GetActiveWeapon().WeaponDamage = ply:GetNW2Int("WeaponDamageBuff")<br>    end<br>end )<br></p>
+              <h1 class="secondary_text">Skill Tree Part</h1>
+              <p class="long_text">    OnPlayerSpawn = function( ply )<br>         ply:SetNW2Int("WeaponDamageBuff", ply:GetNW2Int("WeaponDamageBuff") + 50)<br>    end,<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="falldmg">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Specific Lightsaber Falldamage</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Gives fall damage to specific lightsabers whitelist. <br> Status: Working</h1>
+              <p class="long_text">local lightsabers_to_take_fall = {<br>    ["weapon_vibroblade"] = true,<br>    ["weapon_takefalldamage"] = true,<br>}<br><br>timer.Simple(1, function()<br>    hook.Remove("GetFallDamage", "rb655_lightsaber_no_fall_damage_wOS")<br><br>    hook.Add("GetFallDamage", "wOS.VibroFallDamage", function(ply, speed)<br>        if lightsabers_to_take_fall[ply:GetActiveWeapon()] then<br>            return 0<br>        else<br>            return speed / 8<br>        end<br>    end)<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="rgbitem">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Dropped Item Rainbow</h1>
+              <h1 class="secondary_text">Realm: Client <br> Description: Gives dropped items a RGB halo if the item has ITEM.RarityColor = "Rainbow" or Color(255,255,255). <br> Status: Working</h1>
+              <p class="long_text">timer.Simple(1, function()<br>    hook.Remove("PreDrawHalos", "wOS.Crafting.ItemClose")<br><br>    hook.Add("PreDrawHalos", "wOS.Crafting.anz.ItemClose", function()<br>        if not lookingat then return end<br>        local item = lookingat.Item<br>        if not IsValid(item) then return end<br>        if item:IsPlayer() then return end<br><br>        if item:GetRarityColor() == "Rainbow" then<br>            local rgb = HSVToColor(CurTime() % 7.5 * 60, 1, 1)<br><br>            halo.Add({item}, rgb, 1, 1, 6, true, false)<br>        else<br>            halo.Add({item}, item:GetRarityColor(), 1, 1, 6, true, false)<br>        end<br>    end)<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="extraxp2">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Extra XP for npcs.</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Gives extra XP for specific npc classes. <br> Status: Working</h1>
+              <p class="long_text">local npctable = {<br>    ["npc_class"] = {<br>        xpmultiplier = 3<br>    },<br>    ["npc_class2"] = {<br>        xpmultiplier = 2<br>    },<br>}<br><br>hook.Add("wOS.ALCS.Skill.GetNPCXP", "wOS.ALCS.NPCXPBoost", function(ply, npc, amt)<br>    if npctable[npc:GetClass()] then return amt * npctable[npc:GetClass()].xpmultiplier end<br>end)<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="flurryatt">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Flurry Attacks!</h1>
+              <h1 class="secondary_text">Description: Makes a random light attack when you swing. <br> Status: Working</h1>
+              <h1 class="secondary_text">Any SV file.</h1>
+              <p class="long_text">hook.Add("PreRegisterSWEP", "wOS.ALCS.anz.FlurriesSWEP", function(swep, class)<br>    if swep.ShouldUseFlurries then<br>        swep.DoLight = swep.DoLightV2<br>    end<br>end)<br><br>local multiplier = 0<br>local wepp = FindMetaTable("Weapon")<br><br>function wepp:DoLightV2()<br>    local stance = self:GetStance()<br>    local form = wOS.Form.LocalizedForms[self:GetForm()]<br><br>    if not form then<br>        print("[wOS] Invalid form! Animations will not operate properly!")<br>        self:SetDelay(0)<br><br>        return<br>    end<br><br>    local formdata = wOS.Form.Singles[form][stance]<br>    local movedata = formdata["light_forward" .. math.random(1, formdata["amt_forward"])]<br>    local time<br><br>    if self.Owner:KeyDown(IN_MOVELEFT) then<br>        movedata = formdata["light_left" .. math.random(1, formdata["amt_left"])]<br>    elseif self.Owner:KeyDown(IN_MOVERIGHT) then<br>        movedata = formdata["light_right" .. math.random(1, formdata["amt_right"])]<br>    end<br><br>    if not movedata then<br>        print("[wOS] Invalid move data for form: " .. form .. "!")<br>        self:SetDelay(0)<br><br>        return<br>    end<br><br>    if not self.Owner:GetSequence() == formdata["idle"] then return end<br>    local time = self.Owner:SetSequenceOverride(movedata["Sequence"], movedata["Time"], movedata["Rate"]) or 0.5<br><br>    if not self.CanMoveWhileAttacking then<br>        self.Owner:SetNWFloat("wOS.SaberAttackDelay", CurTime() + time)<br>    end<br><br>    multiplier = multiplier + 1<br>    time = time or 0.5<br>    self:SetDelay(time)<br>    self.AttackTime = CurTime() + time<br>    print(multiplier)<br>    local time2 = movedata["Time"] or 0.5<br>    local rate2 = movedata["Rate"] or 1<br>    PrintMessage(HUD_PRINTCENTER, multiplier .. " | " .. movedata["Sequence"] .. " | " .. time2 .. " | " .. rate2)<br><br>    timer.Simple((time2 * formdata["amt_forward"]), function()<br>        multiplier = 1<br>    end)<br>end<br></p>
+              <p class="secondary_text">Your desired lightsaber SWEP file.</p>
+              <p class="long_text">SWEP.ShouldUseFlurries = true</p>
+              <p class="secondary_text">Your form files. YOU MUST ADJUST ALL USED FORMS. <br> amt_forward, amt_left, and amt_right are the int values of how many attacks per type of swing you'll have.</p>
+              <p class="long_text">local FORM = {}<br><br>FORM.Name = "Relentless"<br>FORM.Type = FORM_SINGLE<br>FORM.UserGroups = { <br>	["VIP"] = { 1, 2, 3 },<br>}<br><br>FORM.Stances = {}<br><br>FORM.Stances[1] = {<br>    [ "amt_forward" ] = 3,<br>    [ "amt_left" ] = 2,<br>    [ "amt_right" ] = 2,<br>    [ "run" ] = "phalanx_r_run",<br>    [ "idle" ] = "phalanx_r_idle",<br>    [ "light_left1" ] = {<br>        Sequence = "phalanx_r_left_t3",<br>        Time = 0.5,<br>        Rate = nil,<br>    },<br>    [ "light_left2" ] = {<br>        Sequence = "phalanx_r_left_t3",<br>        Time = 0.5,<br>        Rate = nil,<br>    },<br>    [ "light_right1" ] = {<br>        Sequence = "phalanx_r_right_t3",<br>        Time = 0.7,<br>        Rate = nil,<br>    },<br>    [ "light_right2" ] = {<br>        Sequence = "phalanx_r_right_t3",<br>        Time = 0.7,<br>        Rate = nil,<br>    },<br>    [ "light_forward1" ] = {<br>        Sequence = "phalanx_r_s1_t2",<br>        Time = nil,<br>        Rate = nil,<br>    },<br>    [ "light_forward2" ] = {<br>        Sequence = "phalanx_r_s1_t2",<br>        Time = nil,<br>        Rate = nil,<br>    },<br>    [ "light_forward3" ] = {<br>        Sequence = "phalanx_r_s1_t2",<br>        Time = nil,<br>        Rate = nil,<br>    },<br>    [ "air_left" ] = {<br>        Sequence =  "phalanx_a_left_t1",<br>        Time = 0.6,<br>        Rate = 1.6,<br>    },<br>    [ "air_right" ] = {<br>        Sequence = "phalanx_a_right_t1",<br>        Time = 0.6,<br>        Rate = 1.7,<br>    },<br>    [ "air_forward" ] = {<br>        Sequence = "phalanx_a_s1_t1",<br>        Time = 0.6,<br>        Rate = 1.2,<br>    },<br>    [ "heavy" ] = {<br>        Sequence = "phalanx_b_s1_t1",<br>        Time = 2.0,<br>        Rate = 0.5,<br>    },<br>    [ "heavy_charge" ] = "phalanx_b_s4_charge",<br>}<br><br>wOS:RegisterNewForm( FORM )<br></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAMPLE TO NOT TOUCH -->
+
+      <!--  
+      <hr size="30" noshade>
+      
+      <div class="container">
+        <div id="sample">
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="image_3"><img src="images/spin.gif"></div>
+            </div>
+            <div class="col-sm-8">
+              <h1 class="cabe_text">Sample</h1>
+              <h1 class="secondary_text">Sample Text</h1>
+              <p class="long_text">Sample Code</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      -->
+
+      <!-- SAMPLE TO NOT TOUCH -->
+
+    </div>
+    <!-- Clean Finish -->
+
+    <!-- Javascript files-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <script src="js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/custom.js"></script>
+    <!-- javascript --> 
+    <script src="js/owl.carousel.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    $(".fancybox").fancybox({
+    openEffect: "none",
+    closeEffect: "none"
+    });
+       
+    $(".zoom").hover(function(){
+         
+    $(this).addClass('transition');
+    }, function(){
+         
+    $(this).removeClass('transition');
+    });
+    });
+    </script> 
+    <script>
+    function openNav() {
+    document.getElementById("myNav").style.width = "100%";
     }
-  });
-}
 
-// listen to keyboard events to move the snake
-document.addEventListener('keydown', function(e) {
-  // prevent snake from backtracking on itself by checking that it's 
-  // not already moving on the same axis (pressing left while moving
-  // left won't do anything, and pressing right while moving left
-  // shouldn't let you collide with your own body)
-  
-  // left arrow key
-  if (e.which === 37 && snake.dx === 0) {
-    snake.dx = -grid;
-    snake.dy = 0;
-  }
-  // up arrow key
-  else if (e.which === 38 && snake.dy === 0) {
-    snake.dy = -grid;
-    snake.dx = 0;
-  }
-  // right arrow key
-  else if (e.which === 39 && snake.dx === 0) {
-    snake.dx = grid;
-    snake.dy = 0;
-  }
-  // down arrow key
-  else if (e.which === 40 && snake.dy === 0) {
-    snake.dy = grid;
-    snake.dx = 0;
-  }
-});
-
-// start the game
-requestAnimationFrame(loop);
-</script>
+    function closeNav() {
+   document.getElementById("myNav").style.width = "0%";
+   }
+</script>   
 </body>
 </html>
