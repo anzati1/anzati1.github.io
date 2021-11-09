@@ -43,8 +43,8 @@
           </h4>
         </div>
         <div id="collapse1" class="panel-collapse collapse">
-          <a href="#forms" class="panel_text">Default Personal Saber Form Workaround.</a>
-          <a href="#helix" class="panel_text">Helix to wOS ALCS</a>
+          <!-- <a href="#forms" class="panel_text">Default Personal Saber Form Workaround.</a> -->
+          <a href="#nut" class="panel_text">NUT to wOS ALCS</a>
           <a href="#parry" class="panel_text">Parry Adjustments</a>
           <!-- <a href="#sample" class="panel_text">Sample Text</a> -->
           <a href="#extraxp" class="panel_text">Extra XP</a>
@@ -62,6 +62,7 @@
     </div>
 
     <!-- CATEGORY -->
+    <!-- 
     <div class="ride_section_2 layout_padding">
       <div id="forms">
         <div class="container">
@@ -77,18 +78,18 @@
           </div>
         </div>
       </div>
-
+-->
       <hr size="30" noshade>
-
+      
       <div class="container">
-        <div id="helix">
+        <div id="nut">
           <div class="row">
             <div class="col-sm-4">
               <div class="image_3"><img src="images/spin.gif"></div>
             </div>
             <div class="col-sm-8">
-              <h1 class="cabe_text">Helix to wOS ALCS</h1>
-              <h1 class="secondary_text">Realm: SERVER <br> Description: Converts Helix Items to wOS ALCS Items. <br> Status: Working</h1>
+              <h1 class="cabe_text">NUT to wOS ALCS</h1>
+              <h1 class="secondary_text">Realm: SERVER <br> Description: Converts NUT Items to wOS ALCS Items. <br> Status: Working</h1>
               <p class="long_text">function ConvertToNut()<br>    if (not nut) then<br>        Error("nutscript was not found")<br><br>        return<br>    end<br><br>    for k, v in pairs(wOS.ItemList) do<br>        nut.item.list[k] = nil<br>        nut.item.Register(k, nil, nil, nil, true)<br>        local item = nut.item.list[k]<br>        item.WOS = v -- config wiltos<br>        item.name = v.Name<br>        item.model = Model(v.Model)<br><br>        if (v.Icon or v.icon) then<br>            item.icon = v.Icon<br>        end<br><br>        item.noBusiness = false<br>        item.description = v.Description<br>        item.category = "ALCS Crystals"<br>        item.width = 1<br>        item.height = 1<br>        item.class = "nut_loot"<br>    end<br><br>    print("WOS Items loaded in NUTSCRIPT")<br>end<br><br>hook.Add("wOS.ALCS.PostLoaded", "ConvertToNUTT", function()<br>    ConvertToNut()<br>end)<br></p>
             </div>
           </div>
@@ -96,7 +97,6 @@
       </div>
 
       <hr size="30" noshade>
-
       <div class="container">
         <div id="parry">
           <div class="row">
