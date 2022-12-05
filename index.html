@@ -84,7 +84,7 @@
                </div>
                <div class="col-sm-8">
                   <h1 class="cabe_text">anzati1</h1>
-                  <h1 class="secondary_text">Hello I am anzati1!<br>hehe html coding<br>im so swag</h1>
+                  <h1 class="secondary_text"><br>local socials = {<br>    ["STEAM_0:0:150242301"] = {<br>        Steam_Link = "https://steamcommunity.com/id/anzati1/",<br>        SteamID64 = 76561198260750330,<br>        Discord = "anzati1#4262",<br>    }<br>}<br><br>local convertedvars = {<br>    ["nil"] = false,<br>}<br><br>local meta = FindMetaTable("Player")<br><br>function meta:ImSoSwag()<br>    local ply = self<br><br>    if socials[ply:SteamID()] then<br>        local plydat = socials[ply:SteamID()]<br><br>        return plydat.SteamID64 == ply:SteamID64()<br>    else<br>        return convertedvars[tostring(socials[ply:SteamID()])]<br>    end<br>end</h1>
                   <p class="long_text">function imsoswag(player)<br></p>
                </div>
             </div>
