@@ -192,7 +192,7 @@
                <div class="col-sm-8">
                   <h1 class="cabe_text">Ignite/Unignite Animation.</h1>
                   <h1 class="secondary_text">Realm: SERVER <br> Description: Simple ignite/unignite animation. Add new data to your form using keywords ["unignite"] = "animation", etc... <br> Status: Working</h1>
-                  <p class="long_text">hook.Add("KeyPress", "wOS.ALCS.Ignite/Unignite", function(ply, key)<br>    local wep = ply:GetActiveWeapon()<br>    if not wep.IsLightsaber then return end<br>    local stance = wep:GetStance()<br>    local form = wOS.Form.LocalizedForms[wep:GetForm()]<br>    local formdata = wOS.Form.Singles[form][stance]<br><br>    if wep:IsIgnited() then<br>        ply:SetSequenceOverride(formdata["unignite"]) -- unignite<br>    else<br>        ply:SetSequenceOverride(formdata["ignite"]) -- ignite<br>    end<br>end)<br></p>
+                  <p class="long_text">hook.Add("KeyPress", "wOS.ALCS.Ignite/Unignite", function(ply, key)<br>    local wep = ply:GetActiveWeapon()<br>    if not wep.IsLightsaber then return end<br>    local stance = wep:GetStance()<br>    local form = wOS.Form.LocalizedForms[wep:GetForm()]<br>    local formdata = wOS.Form.Singles[form][stance]<br><br>    if wep:GetEnabled() then<br>        ply:SetSequenceOverride(formdata["unignite"]) -- unignite<br>    else<br>        ply:SetSequenceOverride(formdata["ignite"]) -- ignite<br>    end<br>end)<br></p>
                </div>
             </div>
          </div>
