@@ -55,6 +55,7 @@
                <a href="#rgbitem" class="panel_text">Dropped Item Rainbow</a>
                <a href="#extraxp2" class="panel_text">Extra XP for npcs</a>
                <a href="#flurryatt" class="panel_text">Flurry Attacks!</a>
+               <a href="/loadingscreen" class="panel_text">My Loading Screen</a>
             </div>
          </div>
       </div>
@@ -276,6 +277,26 @@
                   <p class="secondary_text">Your form files. YOU MUST ADJUST ALL USED FORMS. <br> amt_forward, amt_left, and amt_right are the int values of how many attacks per type of swing you'll have.</p>
                   <p class="long_text">local FORM = {}<br><br>FORM.Name = "Relentless"<br>FORM.Type = FORM_SINGLE<br>FORM.UserGroups = { <br>	["VIP"] = { 1, 2, 3 },<br>}<br><br>FORM.Stances = {}<br><br>FORM.Stances[1] = {<br>    [ "amt_forward" ] = 3,<br>    [ "amt_left" ] = 2,<br>    [ "amt_right" ] = 2,<br>    [ "run" ] = "phalanx_r_run",<br>    [ "idle" ] = "phalanx_r_idle",<br>    [ "light_left1" ] = {<br>        Sequence = "phalanx_r_left_t3",<br>        Time = 0.5,<br>        Rate = nil,<br>    },<br>    [ "light_left2" ] = {<br>        Sequence = "phalanx_r_left_t3",<br>        Time = 0.5,<br>        Rate = nil,<br>    },<br>    [ "light_right1" ] = {<br>        Sequence = "phalanx_r_right_t3",<br>        Time = 0.7,<br>        Rate = nil,<br>    },<br>    [ "light_right2" ] = {<br>        Sequence = "phalanx_r_right_t3",<br>        Time = 0.7,<br>        Rate = nil,<br>    },<br>    [ "light_forward1" ] = {<br>        Sequence = "phalanx_r_s1_t2",<br>        Time = nil,<br>        Rate = nil,<br>    },<br>    [ "light_forward2" ] = {<br>        Sequence = "phalanx_r_s1_t2",<br>        Time = nil,<br>        Rate = nil,<br>    },<br>    [ "light_forward3" ] = {<br>        Sequence = "phalanx_r_s1_t2",<br>        Time = nil,<br>        Rate = nil,<br>    },<br>    [ "air_left" ] = {<br>        Sequence =  "phalanx_a_left_t1",<br>        Time = 0.6,<br>        Rate = 1.6,<br>    },<br>    [ "air_right" ] = {<br>        Sequence = "phalanx_a_right_t1",<br>        Time = 0.6,<br>        Rate = 1.7,<br>    },<br>    [ "air_forward" ] = {<br>        Sequence = "phalanx_a_s1_t1",<br>        Time = 0.6,<br>        Rate = 1.2,<br>    },<br>    [ "heavy" ] = {<br>        Sequence = "phalanx_b_s1_t1",<br>        Time = 2.0,<br>        Rate = 0.5,<br>    },<br>    [ "heavy_charge" ] = "phalanx_b_s4_charge",<br>}<br><br>wOS:RegisterNewForm( FORM )<br></p>
                   <div class="content">
+                     <div class="sun">
+                        <div class="shadow"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <hr size="30" noshade>
+      <div class="container">
+         <div id="loadingscreen">
+            <div class="row">
+               <div class="col-sm-4">
+                  <div class="image_3"><img src="images/spin.gif"></div>
+               </div>
+               <div class="col-sm-8">
+                  <h1 class="cabe_text">My loading screen!</h1>
+                  <h1 class="secondary_text">Description: Makes a random light attack when you swing. <br> Status: Working</h1>
+                  <p class="long_text">hook.Add("PreRegisterSWEP", "wOS.ALCS.anz.FlurriesSWEP", function(swep, class)<br>    if swep.ShouldUseFlurries then<br>        swep.DoLight = swep.DoLightV2<br>    end<br>end)<br><br>local multiplier = 0<br>local wepp = FindMetaTable("Weapon")<br><br>function wepp:DoLightV2()<br>    local stance = self:GetStance()<br>    local form = wOS.Form.LocalizedForms[self:GetForm()]<br><br>    if not form then<br>        print("[wOS] Invalid form! Animations will not operate properly!")<br>        self:SetDelay(0)<br><br>        return<br>    end<br><br>    local formdata = wOS.Form.Singles[form][stance]<br>    local movedata = formdata["light_forward" .. math.random(1, formdata["amt_forward"])]<br>    local time<br><br>    if self.Owner:KeyDown(IN_MOVELEFT) then<br>        movedata = formdata["light_left" .. math.random(1, formdata["amt_left"])]<br>    elseif self.Owner:KeyDown(IN_MOVERIGHT) then<br>        movedata = formdata["light_right" .. math.random(1, formdata["amt_right"])]<br>    end<br><br>    if not movedata then<br>        print("[wOS] Invalid move data for form: " .. form .. "!")<br>        self:SetDelay(0)<br><br>        return<br>    end<br><br>    if not self.Owner:GetSequence() == formdata["idle"] then return end<br>    local time = self.Owner:SetSequenceOverride(movedata["Sequence"], movedata["Time"], movedata["Rate"]) or 0.5<br><br>    if not self.CanMoveWhileAttacking then<br>        self.Owner:SetNWFloat("wOS.SaberAttackDelay", CurTime() + time)<br>    end<br><br>    multiplier = multiplier + 1<br>    time = time or 0.5<br>    self:SetDelay(time)<br>    self.AttackTime = CurTime() + time<br>    print(multiplier)<br>    local time2 = movedata["Time"] or 0.5<br>    local rate2 = movedata["Rate"] or 1<br>    PrintMessage(HUD_PRINTCENTER, multiplier .. " | " .. movedata["Sequence"] .. " | " .. time2 .. " | " .. rate2)<br><br>    timer.Simple((time2 * formdata["amt_forward"]), function()<br>        multiplier = 1<br>    end)<br>end<br></p>
+                     <div class="content">
                      <div class="sun">
                         <div class="shadow"></div>
                      </div>
