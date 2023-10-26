@@ -766,3 +766,13 @@ input.email-bt::placeholder {
     color: #fff;
 }
 
+.loading_text {
+    width: 100%;
+    float: left;
+    font-size: 34px;
+    color: #000000;
+    margin-top: 0px;
+    margin-left: 0px;
+    color: #ffffff;
+    font-weight: bold;
+}
