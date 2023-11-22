@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+    }
+
+    #data-container {
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="data-container">Loading data...</div>
+  <script src="script.js"></script>
+  <script>
+    fetch('data.txt')
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('data-container').textContent = text;
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+
+  <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script>
+</body>
+
+</html>
